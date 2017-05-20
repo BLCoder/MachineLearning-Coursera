@@ -45,20 +45,23 @@ J=(1/2)*sum(sum(R.*((X*Theta')-Y).^2));
 
 J=J+(lambda/2)*sum(sum(Theta.^2))+(lambda/2)*sum(sum(X.^2));
 
-for i=1:num_movies
-  idx=find(R(i,:)==1);
-  y_val=Y(i,idx);
-  theta_val=Theta(idx,:);
-  X_grad(i,:)=((X(i,:)*theta_val')-y_val)*theta_val+lambda*X(i,:);
-end
+X_grad=(((X*Theta')-Y).*R)*Theta+lambda*X;
 
+%for i=1:num_movies
+%  idx=find(R(i,:)==1);
+%  y_val=Y(i,idx);
+%  theta_val=Theta(idx,:);
+%  X_grad(i,:)=((X(i,:)*theta_val')-y_val)*theta_val+lambda*X(i,:);
+%end
 
-for j=1:num_users
-  idx=find(R(:,j)==1);
-  y_val=Y(idx,j);
-  x_val=X(idx,:);
-  Theta_grad(j,:)=((x_val*Theta(j,:)')-y_val)'*x_val+lambda*Theta(j,:);
-end
+Theta_grad=(((X*Theta')-Y).*R)'*X+lambda*Theta;
+
+%for j=1:num_users
+%  idx=find(R(:,j)==1);
+%  y_val=Y(idx,j);
+%  x_val=X(idx,:);
+%  Theta_grad(j,:)=((x_val*Theta(j,:)')-y_val)'*x_val+lambda*Theta(j,:);
+%end
 
 
 % =============================================================
